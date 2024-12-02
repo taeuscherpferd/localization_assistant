@@ -1,10 +1,11 @@
-import "./App.css";
+import { MainPage } from "src/components/MainPage/MainPage";
+import "./App.scss";
 
 function App() {
 
   return (
     <main className="container">
-      {"Sup"}
+      <MainPage />
     </main>
   );
 }

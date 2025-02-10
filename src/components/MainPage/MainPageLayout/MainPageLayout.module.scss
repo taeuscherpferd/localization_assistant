@@ -5,7 +5,7 @@
   display: grid;
   grid-template:
     "leftContent centerContent rightContent" 1fr
-    / .5fr 2fr 1fr;
+    / 0.5fr 1fr 1fr;
   gap: 10px; /* Adjust the gap between columns as needed */
 }
 
@@ -17,4 +17,10 @@
 }
 .centerContent {
   grid-area: centerContent;
+}
+
+.settings {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 }

@@ -6,5 +6,10 @@
   background-color: green;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+}
+
+.leftAlign {
+  text-align: left;
+  align-self: flex-start;
+  margin-left: 1rem;
 }

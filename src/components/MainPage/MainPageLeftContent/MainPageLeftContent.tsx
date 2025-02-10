@@ -26,6 +26,10 @@ export const MainPageLeftContent = (props: MainPageLeftContentProps) => {
   const onLocalizeClick = () => {
   }
 
+  function onSaveToFiles(): void {
+    throw new Error('Function not implemented.')
+  }
+
   return (
     <div className={styles.MainPageLeftContent}>
       <TextInput value={prefix}
@@ -44,6 +48,11 @@ export const MainPageLeftContent = (props: MainPageLeftContentProps) => {
       <div className={styles.buttonWrapper}>
         <button onClick={onLocalizeClick}>
           {"Localize"}
+        </button>
+      </div>
+      <div className={styles.buttonWrapper}>
+        <button onClick={onSaveToFiles}>
+          {"Save to files"}
         </button>
       </div>
     </div>

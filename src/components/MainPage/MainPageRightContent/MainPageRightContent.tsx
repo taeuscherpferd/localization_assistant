@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TranslationItem } from 'src/types/models/TranslationItem';
 import { AltServiceSelector } from './AltServiceSelector';
-import { GenericInput } from './GenericInput';
+import { LabledInput } from './LabledInput';
 import styles from './MainPageRightContent.module.scss';
 import { Placeholder } from './Placeholder';
 import { SaveButtons } from './SaveButtons';
@@ -17,7 +17,12 @@ export const MainPageRightContent = ({ selectedItem, onUpdateTranslation }: Main
   const [sandboxValue, setSandboxValue] = useState<string>("");
   const [translationPlayboxValue, setTranslationPlayboxValue] = useState<string>(selectedItem?.translation ?? "");
 
-  const handleTranslationChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  // Keep the translationPlayboxValue in sync with external changes
+  useEffect(() => {
+    setTranslationPlayboxValue(selectedItem?.translation ?? "");
+  }, [selectedItem]);
+
+  const handleTranslationChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     if (!selectedItem) return;
     setTranslationPlayboxValue(e.target.value);
   };
@@ -33,7 +38,7 @@ export const MainPageRightContent = ({ selectedItem, onUpdateTranslation }: Main
   const mainContent = (
     <div className={styles.MainPageRightContent}>
       <span className={styles.header}>{selectedItem?.languageCode}</span>
-      <GenericInput
+      <LabledInput
         label="Translation:"
         value={translationPlayboxValue}
         onChange={handleTranslationChange}
@@ -42,17 +47,17 @@ export const MainPageRightContent = ({ selectedItem, onUpdateTranslation }: Main
         altService={altService}
         onChange={(e) => setAltService(e.target.value)}
       />
-      <GenericInput
+      <LabledInput
         label="Context for GPT:"
         value={contextForGPT}
         onChange={(e) => setContextForGPT(e.target.value)}
       />
-      <GenericInput
+      <LabledInput
         label="Sandbox (chat-sandbox?):"
         value={sandboxValue}
         onChange={(e) => setSandboxValue(e.target.value)}
       />
-      <SaveButtons onSaveClick={onSaveBackToResults} />
+      <SaveButtons label={"⬅️ Save back to results"} onSaveClick={onSaveBackToResults} />
     </div>
   )
 

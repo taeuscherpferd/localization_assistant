@@ -4,10 +4,10 @@
   position: fixed;
   left: 0;
   top: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
   // backdrop-filter: blur(4px);
   // animation: fade-in 0.3s;
-  transition: background-color 0.5s;
+  transition: background-color 0.2s;
 
   // &_display {
   //   background-color: rgba(0, 0, 0, 0.5);
@@ -25,7 +25,7 @@
 }
 
 .busyIndicatorIn {
-  animation: fadeInOpacity 0.5s;
+  animation: fadeInOpacity 0.2s;
   animation-delay: 2s;
   animation-fill-mode: both;
 }
@@ -48,13 +48,13 @@
     background-color: rgba(0, 0, 0, 0);
   }
   to {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
   }
 }
 
 @keyframes fadeOut {
   from {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
   }
   to {
     background-color: rgba(0, 0, 0, 0);

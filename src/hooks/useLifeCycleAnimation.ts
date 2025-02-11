@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 
-export const useLifeCycleAnimation = (mountCondition: boolean): [boolean, (e: React.AnimationEvent)=>void] => {
+export const useLifeCycleAnimation = (mountCondition: boolean): [boolean, (e: React.AnimationEvent) => void] => {
   const [shouldRender, setShouldRender] = useState(false)
 
   useEffect(() => {
     mountCondition && setShouldRender(true)
   }, [mountCondition])
 
-  const onAnimationEnd = (e: React.AnimationEvent) => {
+  const onAnimationEnd = () => {
     if (!mountCondition) setShouldRender(false)
   }
 

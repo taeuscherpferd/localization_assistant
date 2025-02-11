@@ -1,5 +1,15 @@
 .SettingsModal {
-  width: 80vw;
+  width: 40vw;
   height: 80vh;
   background-color: var(--theme-background-primary-dark);
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  border-radius: 5px;
+  gap: 0.5rem;
+}
+
+.buttonWrapper {
+  align-self: flex-end;
 }

@@ -1,16 +1,18 @@
 import styles from './SaveButtons.module.scss';
 
 interface SaveButtonsProps {
+  label: string;
   onSaveClick: () => void;
 }
 
-export const SaveButtons = ({ onSaveClick }: SaveButtonsProps) => (
+export const SaveButtons = ({ onSaveClick, label }: SaveButtonsProps) => (
   <div>
     <button
       className={styles.button}
       onClick={onSaveClick}
     >
-      {"⬅️ Save back to results"}
+      {label}
+      {/* {"⬅️ Save back to results"} */}
     </button>
   </div>
 );

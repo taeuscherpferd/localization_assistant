@@ -1,0 +1,25 @@
+.translationDisplayItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  flex: 1;
+}
+
+.languageButton {
+  margin-right: 0.5rem;
+}
+
+.selected {
+  box-shadow: 0 0 0 2px var(--theme-highlight-dark); /* emulate the border */
+  border-radius: 5px;
+}
+
+.translationDisplay {
+  flex: 1;
+}
+
+.translationItem {
+  width: 100%;
+  padding: 0 1rem;
+}

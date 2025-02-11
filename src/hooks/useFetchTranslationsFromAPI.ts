@@ -7,6 +7,14 @@ export const useFetchTranslationsFromAPI = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  const updateTranslation = (updatedItem: TranslationItem) => {
+    setTranslations((prev) =>
+      prev.map((item) =>
+        item.languageCode === updatedItem.languageCode ? updatedItem : item
+      )
+    );
+  }
+
   useEffect(() => {
     const fetchTranslations = async () => {
       try {
@@ -16,7 +24,7 @@ export const useFetchTranslationsFromAPI = () => {
         // if (!response.ok) {
         //   throw new Error('Failed to fetch translations');
         // }
-        const data: TranslationItem[] = []//response;
+        const data: TranslationItem[] = [{languageCode: "de-DU", translation: "Richi! I ha gseit du sollsch dich halten!!!"}, {languageCode: "en-US", translation: "Richi! Behave yourself!"}]//response;
         setTranslations(data);
       } catch (err: any) {
         setError(err.message);
@@ -28,5 +36,5 @@ export const useFetchTranslationsFromAPI = () => {
     fetchTranslations();
   }, []);
 
-  return { translatedItems, loading, error };
+  return { translatedItems, updateTranslation, loading, error };
 };

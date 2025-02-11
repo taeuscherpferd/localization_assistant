@@ -1,9 +1,22 @@
+html {
+  --theme-background-primary-dark: #505050;
+  --theme-background-secondary-dark: #343434;
+  --theme-input-dark: #0f0f0f98;
+  --theme-highlight-dark: #a0e7ff;
+}
 body {
   padding: 0px;
   margin: 0px;
+  box-sizing: inherit;
+}
+
+* {
+  box-sizing: inherit;
 }
 
 #root {
+  // Theme Variables
+
   display: flex;
   width: 100vw;
   height: 100vh;
@@ -25,6 +38,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  box-sizing: border-box;
 }
 
 .container {
@@ -85,7 +99,7 @@ button {
 @media (prefers-color-scheme: dark) {
   :root {
     color: #f6f6f6;
-    background-color: #2f2f2f;
+    background-color: var(--theme-background-primary-dark);
   }
 
   a:hover {
@@ -95,9 +109,9 @@ button {
   input,
   button {
     color: #ffffff;
-    background-color: #0f0f0f98;
+    background-color: var(--theme-input-dark);
   }
   button:active {
-    background-color: #0f0f0f69;
+    background-color: var(--theme-input-dark);
   }
 }

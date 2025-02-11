@@ -1,3 +1,4 @@
+import TranslationDisplayItem from 'src/components/TranslationDisplayItem/TranslationDisplayItem';
 import { TranslationItem } from "src/types/models/TranslationItem";
 import styles from "./MainPageCenterContent.module.scss";
 
@@ -7,31 +8,29 @@ interface ResultsColumnProps {
   selectedLangCode: string | null;
 }
 
-const pageStyle = {
-  padding: "4px",
-  cursor: "pointer",
-  // backgroundColor: item.languageCode === selectedLangCode ? "#eee" : "transparent",
-}
+export const MainPageCenterContent = ({ items, onSelect, selectedLangCode }: ResultsColumnProps) => {
 
-export const MainPageCenterContent = ({
-  items,
-  onSelect,
-  selectedLangCode,
-}: ResultsColumnProps) => {
+  const handleCopyResults = () => {
+    const resultsText = items.map(item => item.translation).join('\n');
+    navigator.clipboard.writeText(resultsText);
+  };
+
   return (
     <div className={styles.MainPageCenterContent}>
-      <span className={styles.leftAlign}>
-        <h2>Results:</h2>
-      </span>
+      <div className={styles.headerContainer}>
+        <span className={styles.header}>
+          {"Results:"}
+        </span>
+        <button className={styles.copyButton} onClick={handleCopyResults}>
+          {"Copy Results"}
+        </button>
+      </div>
       {items.map((item) => (
-        <div
-          key={item.languageCode}
-          onClick={() => onSelect(item)}
-          style={pageStyle}
-          className={styles.translationItem}
-        >
-          {item.languageCode}
-        </div>
+        <TranslationDisplayItem
+          translationItem={item}
+          isSelected={item.languageCode === selectedLangCode}
+          onSelect={onSelect}
+        />
       ))}
     </div>
   );

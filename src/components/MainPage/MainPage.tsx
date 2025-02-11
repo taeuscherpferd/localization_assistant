@@ -16,7 +16,9 @@ export const MainPage = (props: MainPageProps) => {
   const [settingsModalVisible, setSettingsModalVisible] = useState(false);
   const [selectedTranslationLanguageCode, setSelectedTranslationLanuageCode] = useState("")
 
-  const { translatedItems } = useFetchTranslationsFromAPI()
+  const { translatedItems, updateTranslation } = useFetchTranslationsFromAPI()
+
+  const selectedTranslatedItem = translatedItems.find(item => item.languageCode === selectedTranslationLanguageCode)
 
   const onSettingsClick = () => {
     setSettingsModalVisible(true)
@@ -26,12 +28,16 @@ export const MainPage = (props: MainPageProps) => {
     setSelectedTranslationLanuageCode(item.languageCode)
   }
 
+  const onUpdateTranslation = (item: TranslationItem) => {
+    updateTranslation(item)
+  }
+
   return (
     <div className={styles.MainPage}>
       <MainPageLayout
         LeftContent={<MainPageLeftContent />}
         CenterContent={<MainPageCenterContent items={translatedItems} onSelect={onTranslationItemSelected} selectedLangCode={selectedTranslationLanguageCode} />}
-        RightContent={<MainPageRightContent />}
+        RightContent={<MainPageRightContent selectedItem={selectedTranslatedItem} onUpdateTranslation={onUpdateTranslation} />}
         TopRightButton={<SettingsButton onClick={onSettingsClick} />}
       />
       <SettingsModal shouldDisplay={settingsModalVisible} toggleShouldDisplay={() => setSettingsModalVisible(false)} />

@@ -5,7 +5,7 @@
   display: grid;
   grid-template:
     "leftContent centerContent rightContent" 1fr
-    / 0.5fr 1fr 1fr;
+    / 0.5fr 1fr .5fr;
   gap: 10px; /* Adjust the gap between columns as needed */
 }
 

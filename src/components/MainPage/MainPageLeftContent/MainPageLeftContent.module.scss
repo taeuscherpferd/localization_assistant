@@ -23,3 +23,10 @@
     width: 100%;
   }
 }
+
+.disabledButton {
+  color: var(--theme-text-secondary);
+  border: none;
+
+  cursor: not-allowed;
+}

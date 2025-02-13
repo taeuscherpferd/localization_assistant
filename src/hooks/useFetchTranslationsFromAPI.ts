@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
+import { BatchLocalizeWithGoogleTranslate } from 'src/service/api/GoogleTranslate.api';
 import { TranslationItem } from 'src/types/models/TranslationItem';
 
-// FIXME: Not implmented yet
-export const useFetchTranslationsFromAPI = () => {
+export const useFetchTranslationsFromAPI = (languageCodes: string[], authToken: string) => {
   const [translatedItems, setTranslations] = useState<TranslationItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -15,16 +15,11 @@ export const useFetchTranslationsFromAPI = () => {
     );
   }
 
-  useEffect(() => {
+  const localizeString = useCallback(async (text: string) => {
     const fetchTranslations = async () => {
       try {
         setLoading(true);
-        // Replace with your API endpoint
-        // const response = (await axios.get('/api/translations')).data;
-        // if (!response.ok) {
-        //   throw new Error('Failed to fetch translations');
-        // }
-        const data: TranslationItem[] = [{languageCode: "de-DU", translation: "Richi! I ha gseit du sollsch dich halten!!!"}, {languageCode: "en-US", translation: "Richi! Behave yourself!"}]//response;
+        const data: TranslationItem[] = await BatchLocalizeWithGoogleTranslate(text, languageCodes, authToken);
         setTranslations(data);
       } catch (err: any) {
         setError(err.message);
@@ -34,7 +29,7 @@ export const useFetchTranslationsFromAPI = () => {
     };
 
     fetchTranslations();
-  }, []);
+  }, [languageCodes, authToken]);
 
-  return { translatedItems, updateTranslation, loading, error };
+  return { translatedItems, updateTranslation, localizeString, loading, error };
 };

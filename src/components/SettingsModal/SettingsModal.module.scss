@@ -13,3 +13,15 @@
 .buttonWrapper {
   align-self: flex-end;
 }
+
+.options {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  width: 100%;
+}
+
+.externalExpand {
+  height: 100%;
+}

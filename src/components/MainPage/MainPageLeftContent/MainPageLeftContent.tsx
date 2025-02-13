@@ -1,52 +1,51 @@
-import { useState } from 'react'
 import { CheckBox } from 'src/components/CheckBox/CheckBox'
 import { TextInput } from 'src/components/TextInput/TextInput'
 import styles from './MainPageLeftContent.module.scss'
 
 interface MainPageLeftContentProps {
+  stringKey: string
+  stringToLocalize: string
+  shouldUpdateDefaultLanguage: boolean
+  setStringKey: React.Dispatch<React.SetStateAction<string>>
+  setStringToLocalize: React.Dispatch<React.SetStateAction<string>>
+  setShouldUpdateDefaultLanguage: React.Dispatch<React.SetStateAction<boolean>>
+  onSaveToFiles: () => void
+  onLocalizeClick: () => void
 }
 
-export const MainPageLeftContent = (props: MainPageLeftContentProps) => {
-  const [prefix, setPrefix] = useState<string>('')
-  const [text, setText] = useState<string>('')
-  const [checked, setChecked] = useState<boolean>(false)
+export const MainPageLeftContent = ({ onSaveToFiles, onLocalizeClick, stringKey, stringToLocalize,
+  shouldUpdateDefaultLanguage, setStringKey, setStringToLocalize, setShouldUpdateDefaultLanguage }: MainPageLeftContentProps) => {
+  const isLocalizeDisabled = !stringKey || !stringToLocalize
 
   const onPrefixInputChange = (value: string) => {
-    setPrefix(value)
+    setStringKey(value)
   }
 
   const onTextInputChange = (value: string) => {
-    setText(value)
+    setStringToLocalize(value)
   }
 
   const onCheckBoxChange = (value: boolean) => {
-    setChecked(value)
-  }
-
-  const onLocalizeClick = () => {
-  }
-
-  function onSaveToFiles(): void {
-    throw new Error('Function not implemented.')
+    setShouldUpdateDefaultLanguage(value)
   }
 
   return (
     <div className={styles.MainPageLeftContent}>
-      <TextInput value={prefix}
+      <TextInput value={stringKey}
         onChange={onPrefixInputChange}
         placeholder={'Prefix (myKey)'}
       />
-      <TextInput value={text}
+      <TextInput value={stringToLocalize}
         onChange={onTextInputChange}
         placeholder={'Text to localize'}
       />
       <CheckBox
-        checked={checked}
+        checked={shouldUpdateDefaultLanguage}
         onChange={onCheckBoxChange}
         label={"Include default language when saving"}
       />
       <div className={styles.buttonWrapper}>
-        <button onClick={onLocalizeClick}>
+        <button onClick={onLocalizeClick} className={isLocalizeDisabled ? styles.disabledButton : undefined} disabled={isLocalizeDisabled}>
           {"Localize"}
         </button>
       </div>

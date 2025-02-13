@@ -11,7 +11,12 @@ interface ResultsColumnProps {
 export const MainPageCenterContent = ({ items, onSelect, selectedLangCode }: ResultsColumnProps) => {
 
   const handleCopyResults = () => {
-    const resultsText = items.map(item => item.translation).join('\n');
+    const resultsObject = items.reduce((acc, item) => {
+      acc[item.languageCode] = item.translation;
+      return acc;
+    }, {} as Record<string, string>);
+
+    const resultsText = JSON.stringify(resultsObject, null, 2);
     navigator.clipboard.writeText(resultsText);
   };
 
@@ -27,6 +32,7 @@ export const MainPageCenterContent = ({ items, onSelect, selectedLangCode }: Res
       </div>
       {items.map((item) => (
         <TranslationDisplayItem
+          key={item.languageCode}
           translationItem={item}
           isSelected={item.languageCode === selectedLangCode}
           onSelect={onSelect}

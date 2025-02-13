@@ -10,13 +10,18 @@ import { TranslationItem } from 'src/types/models/TranslationItem';
 import styles from './MainPage.module.scss';
 
 interface MainPageProps {
+  localizerSettings: LocalizerSettings;
+  saveSettings: (s: LocalizerSettings) => void;
 }
 
-export const MainPage = (props: MainPageProps) => {
+export const MainPage = ({ localizerSettings, saveSettings }: MainPageProps) => {
+  const [stringKey, setStringKey] = useState<string>('')
+  const [stringToLocalize, setStringToLocalize] = useState<string>('')
+  const [shouldUpdateDefaultLanguage, setShouldUpdateDefaultLanguage] = useState<boolean>(false)
   const [settingsModalVisible, setSettingsModalVisible] = useState(false);
   const [selectedTranslationLanguageCode, setSelectedTranslationLanuageCode] = useState("")
 
-  const { translatedItems, updateTranslation } = useFetchTranslationsFromAPI()
+  const { translatedItems, updateTranslation, localizeString } = useFetchTranslationsFromAPI(localizerSettings.supportedLanguages, localizerSettings.apiKey)
 
   const selectedTranslatedItem = translatedItems.find(item => item.languageCode === selectedTranslationLanguageCode)
 
@@ -32,15 +37,45 @@ export const MainPage = (props: MainPageProps) => {
     updateTranslation(item)
   }
 
+  const onSettingsSave = (s: LocalizerSettings) => {
+    saveSettings(s)
+  }
+
+  const onToggleSettingsModal = () => {
+    setSettingsModalVisible(false)
+  }
+
+  const onLocalizeClick = async () => {
+     localizeString(stringToLocalize)
+  }
+
+  const onSaveToFilesClick = () => {
+  }
+
   return (
     <div className={styles.MainPage}>
       <MainPageLayout
-        LeftContent={<MainPageLeftContent />}
+        LeftContent={
+          <MainPageLeftContent
+            onLocalizeClick={onLocalizeClick}
+            onSaveToFiles={onSaveToFilesClick}
+            stringKey={stringKey}
+            stringToLocalize={stringToLocalize}
+            shouldUpdateDefaultLanguage={shouldUpdateDefaultLanguage}
+            setStringKey={setStringKey}
+            setStringToLocalize={setStringToLocalize}
+            setShouldUpdateDefaultLanguage={setShouldUpdateDefaultLanguage}
+          />
+        }
         CenterContent={<MainPageCenterContent items={translatedItems} onSelect={onTranslationItemSelected} selectedLangCode={selectedTranslationLanguageCode} />}
         RightContent={<MainPageRightContent selectedItem={selectedTranslatedItem} onUpdateTranslation={onUpdateTranslation} />}
         TopRightButton={<SettingsButton onClick={onSettingsClick} />}
       />
-      <SettingsModal shouldDisplay={settingsModalVisible} toggleShouldDisplay={() => setSettingsModalVisible(false)} />
+      <SettingsModal
+        shouldDisplay={settingsModalVisible}
+        toggleShouldDisplay={onToggleSettingsModal}
+        localizerSettings={localizerSettings}
+        onSettingsSave={onSettingsSave} />
     </div>
   )
 }

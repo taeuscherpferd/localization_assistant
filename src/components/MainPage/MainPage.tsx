@@ -1,3 +1,4 @@
+import { invoke } from '@tauri-apps/api/core';
 import { useState } from 'react';
 import { MainPageCenterContent } from 'src/components/MainPage/MainPageCenterContent/MainPageCenterContent';
 import { MainPageLayout } from 'src/components/MainPage/MainPageLayout/MainPageLayout';
@@ -49,7 +50,9 @@ export const MainPage = ({ localizerSettings, saveSettings }: MainPageProps) => 
      localizeString(stringToLocalize)
   }
 
-  const onSaveToFilesClick = () => {
+  const onSaveToFilesClick = async () => {
+    const res = await invoke('write_to_language_files', { jsonData: JSON.stringify(translatedItems), translationKey: stringKey, path: localizerSettings.localeJsonPath })
+    alert(res)
   }
 
   return (

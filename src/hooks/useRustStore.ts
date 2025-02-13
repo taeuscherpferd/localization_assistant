@@ -1,15 +1,7 @@
-import { load, Store } from "@tauri-apps/plugin-store"
+import { Store } from "@tauri-apps/plugin-store"
 import { useEffect, useState } from "react"
 
-let store: Store
-try {
-  store = await load(".settings.json")
-}
-catch (e) {
-  console.error(e)
-}
-
-export const useRustStore = () => {
+export const useRustStore = (store: Store) => {
   const [apiKey, setApiKey] = useState("")
   const [localeJsonPath, setLocaleJsonPath] = useState("")
   const [supportedLanguages, setSupportedLanguages] = useState<string[]>([])
@@ -29,7 +21,7 @@ export const useRustStore = () => {
         console.error(e)
       }
     })();
-  }, [])
+  }, [store])
 
 
   const saveSettings = async (newSettings: LocalizerSettings) => {

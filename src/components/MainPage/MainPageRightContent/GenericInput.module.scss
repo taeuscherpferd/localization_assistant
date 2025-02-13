@@ -1,0 +1,16 @@
+.inputGroup {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.textarea {
+  min-height: 60px;
+  flex: 1;
+}
+
+.genericLabel {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-bottom: 0.5rem;
+}

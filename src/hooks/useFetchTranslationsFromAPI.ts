@@ -19,7 +19,7 @@ export const useFetchTranslationsFromAPI = (languageCodes: string[], authToken: 
     const fetchTranslations = async () => {
       try {
         setLoading(true);
-        const data: TranslationItem[] = await BatchLocalizeWithGoogleTranslate(text, languageCodes, authToken);
+        const data: TranslationItem[] = await BatchLocalizeWithGoogleTranslate(text, "en", languageCodes, authToken);
         setTranslations(data);
       } catch (err: any) {
         setError(err.message);

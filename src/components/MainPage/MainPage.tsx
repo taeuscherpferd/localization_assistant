@@ -20,7 +20,8 @@ export const MainPage = ({ localizerSettings, saveSettings }: MainPageProps) => 
   const [stringToLocalize, setStringToLocalize] = useState<string>('')
   const [shouldUpdateDefaultLanguage, setShouldUpdateDefaultLanguage] = useState<boolean>(false)
   const [settingsModalVisible, setSettingsModalVisible] = useState(false);
-  const [selectedTranslationLanguageCode, setSelectedTranslationLanuageCode] = useState("")
+  const [selectedTranslationLanguageCode, setSelectedTranslationLanguageCode] = useState("")
+
 
   const { translatedItems, updateTranslation, localizeString } = useFetchTranslationsFromAPI(localizerSettings.supportedLanguages, localizerSettings.apiKey)
 
@@ -31,7 +32,7 @@ export const MainPage = ({ localizerSettings, saveSettings }: MainPageProps) => 
   }
 
   const onTranslationItemSelected = (item: TranslationItem) => {
-    setSelectedTranslationLanuageCode(item.languageCode)
+    setSelectedTranslationLanguageCode(item.languageCode)
   }
 
   const onUpdateTranslation = (item: TranslationItem) => {
@@ -51,7 +52,7 @@ export const MainPage = ({ localizerSettings, saveSettings }: MainPageProps) => 
   }
 
   const onSaveToFilesClick = async () => {
-    const res = await invoke('write_to_language_files', { jsonData: JSON.stringify(translatedItems), translationKey: stringKey, path: localizerSettings.localeJsonPath })
+    const res = await invoke('write_to_language_files', { jsonData: JSON.stringify(translatedItems), translationKey: stringKey, path: localizerSettings.localeJsonPath, shouldUpdateDefaultLanguage, defaultLanguage: localizerSettings.defaultLanguage });
     alert(res)
   }
 

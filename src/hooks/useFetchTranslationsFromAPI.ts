@@ -3,12 +3,12 @@ import { BatchLocalizeWithGoogleTranslate } from 'src/service/api/GoogleTranslat
 import { TranslationItem } from 'src/types/models/TranslationItem';
 
 export const useFetchTranslationsFromAPI = (languageCodes: string[], authToken: string) => {
-  const [translatedItems, setTranslations] = useState<TranslationItem[]>([]);
+  const [translatedItems, setTranslatedItems] = useState<TranslationItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const updateTranslation = (updatedItem: TranslationItem) => {
-    setTranslations((prev) =>
+    setTranslatedItems((prev) =>
       prev.map((item) =>
         item.languageCode === updatedItem.languageCode ? updatedItem : item
       )
@@ -20,7 +20,7 @@ export const useFetchTranslationsFromAPI = (languageCodes: string[], authToken: 
       try {
         setLoading(true);
         const data: TranslationItem[] = await BatchLocalizeWithGoogleTranslate(text, "en", languageCodes, authToken);
-        setTranslations(data);
+        setTranslatedItems(data);
       } catch (err: any) {
         setError(err.message);
       } finally {

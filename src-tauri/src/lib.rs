@@ -18,8 +18,15 @@ fn greet(name: &str) -> String {
 }
 
 #[tauri::command]
-fn write_to_language_files(json_data: &str, translation_key: &str, path: &str) -> String {
-    let translations: Vec<Translation> = serde_json::from_str(json_data).unwrap();
+fn write_to_language_files(json_data: &str, translation_key: &str, path: &str, default_language: &str, should_update_default_language: bool) -> String {
+    let mut translations: Vec<Translation> = serde_json::from_str(json_data).unwrap();
+
+
+    // Remove the default language from the translations if it exists
+    if !should_update_default_language {
+      translations.retain(|translation| translation.language_code != default_language);
+    }
+
     for translation_obj in translations {
         let file_path = Path::new(path).join(format!("{}.json", translation_obj.language_code));
         let mut file_content: Value = if file_path.exists() {
@@ -36,6 +43,7 @@ fn write_to_language_files(json_data: &str, translation_key: &str, path: &str) -
         )
         .unwrap();
     }
+
     "Translations processed successfully".to_string()
 }
 

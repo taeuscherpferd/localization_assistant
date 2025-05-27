@@ -7,7 +7,7 @@ interface AppProps {
   tauriStore: Store;
 }
 
-function App({ tauriStore }: AppProps) {
+function App({ tauriStore }: Readonly<AppProps>) {
   const {localizerSettings, saveSettings} = useRustStore(tauriStore);
   return (
     <main className="container">

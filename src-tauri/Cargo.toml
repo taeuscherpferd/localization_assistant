@@ -3,7 +3,7 @@ name = "localizer_assistant"
 version = "0.1.1"
 description = "A Tauri App to localize applications like a poor boy"
 authors = ["you"]
-edition = "2021"
+edition = "2024"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

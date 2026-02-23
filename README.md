@@ -14,3 +14,4 @@ A Tauri based app to help us poor boys to localize applications
 
 
 ## Publishing
+run `npm run tauri build`

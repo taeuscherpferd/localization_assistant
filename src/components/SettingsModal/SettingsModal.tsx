@@ -27,7 +27,8 @@ export const SettingsModal = ({ shouldDisplay, toggleShouldDisplay, localizerSet
     onSettingsSave({
       apiKey: localApiKey,
       localeJsonPath: localPathToJson,
-      supportedLanguages: localSupportedLanguages.trim().split('\n')
+      supportedLanguages: localSupportedLanguages.trim().split('\n'),
+      defaultLanguage: "en-US"
     })
     toggleShouldDisplay()
   }

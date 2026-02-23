@@ -30,14 +30,16 @@ export const MainPageCenterContent = ({ items, onSelect, selectedLangCode }: Res
           {"Copy Results"}
         </button>
       </div>
-      {items.map((item) => (
-        <TranslationDisplayItem
-          key={item.languageCode}
-          translationItem={item}
-          isSelected={item.languageCode === selectedLangCode}
-          onSelect={onSelect}
-        />
-      ))}
+      <div className={styles.scrollableContent}>
+        {items.map((item) => (
+          <TranslationDisplayItem
+            key={item.languageCode}
+            translationItem={item}
+            isSelected={item.languageCode === selectedLangCode}
+            onSelect={onSelect}
+          />
+        ))}
+      </div>
     </div>
   );
 };

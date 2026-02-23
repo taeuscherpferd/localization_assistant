@@ -1,7 +1,7 @@
 import axios from "axios";
 import { TranslationItem } from "src/types/models/TranslationItem";
 
-const googleTranslateEndpoint = "https://translation.googleapis.com/language/translate/v2?key=";
+const googleTranslateEndpoint = "https://translation.googleapis.com/language/translate/v2";
 
 interface GoogleMappedTranslation {
   googleLanguageCode: string;
